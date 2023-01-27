@@ -57,19 +57,12 @@ function getWeather(){
         .then(function(response){
             console.log(response);
 
-            var container = $("<div>");
-            cityName = $("<h2>");
-            cityName.html(response.city.name);
-            temp = $("<p>");
-            temp.html("Temp: " + parseFloat((response.list[0].main.temp - 273.15).toFixed(2)));
-            wind = $("<p>");
-            wind.html("Wind: " + response.list[0].wind.speed + "m/s");
-            humidity = $("<p>");
-            humidity.html("Humidity: " + response.list[0].main.humidity + "%");
-            container.append(cityName).append(temp).append(wind).append(humidity);
-            $("#today").append(container);
+            var cityResult = response.city.name;
+            var tempResult = calculateCelsius(response.list[0].main.temp) + "C";
+            var windResult = response.list[0].wind.speed;
+            var humidityResult = response.list[0].main.humidity;
 
-            
+            updateTodayDisplay(cityResult, tempResult, windResult, humidityResult)
         });
     });
 }
@@ -81,10 +74,22 @@ $("#search-button").on("click", function(event){
 
 });
 
-function updateTodayDisplay(){
-    
+function updateTodayDisplay(cityResult, tempResult, windResult, humidityResult){
+    var container = $("<div>");
+    container.attr("class", "todayContainer")
+    cityName = $("<h2>");
+    cityName.html(cityResult);
+    temp = $("<p>");
+    temp.html("Temp: " + tempResult);
+    wind = $("<p>");
+    wind.html("Wind: " + windResult + "m/s");
+    humidity = $("<p>");
+    humidity.html("Humidity: " + humidityResult + "%");
+    container.append(cityName).append(temp).append(wind).append(humidity);
+    $("#today").append(container);
 }
 
-function calculateCelsius(temperature){
-
+function calculateCelsius(kelvinTemp){
+    tempResult = parseFloat((kelvinTemp - 273.15).toFixed(2));
+    return tempResult;
 }
