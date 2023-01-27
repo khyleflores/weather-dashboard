@@ -8,3 +8,8 @@
     width: 100%;
     border: 1px solid black;
 }
+
+#today{
+    border: 1px solid black;
+    padding: 5px;
+}
