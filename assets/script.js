@@ -66,6 +66,11 @@ function getWeather(city){
             var windResult = response.list[0].wind.speed;
             var humidityResult = response.list[0].main.humidity;
 
+            for (let i = 1; i < response.list.length && i < 6; i++) {
+                console.log(response.list[i].dt_txt);
+                console.log("For loop");
+            }
+
             //use the set variables to update the HTML with information
             updateTodayDisplay(cityResult, date, weatherIcon, tempResult, windResult, humidityResult)
         });
@@ -156,3 +161,6 @@ $("#history").on("click", ".historyButtons", function(event){
     getWeather(searchCity);
 })
 
+function fiveDayForecast(){
+
+}
