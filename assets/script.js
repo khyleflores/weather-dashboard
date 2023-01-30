@@ -29,58 +29,66 @@ $(window).on("load", function(event){
 
 function getWeather(city){
     // Constructing a queryURL using the city name to get coordinates
-    var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + 
+    var queryURLCoord = "http://api.openweathermap.org/geo/1.0/direct?q=" + 
     city + "&limit=1&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
 
     $.ajax({
-        url: queryURL,
+        url: queryURLCoord,
         method: "GET"
     })
     .then(function(response){
-        console.log(response);
-
         //set the result of lat and lon from Ajax to variables to use to queryURL
         var lat = response[0].lat;
         var lon = response[0].lon;
 
         // Constructing a queryURL using the coordinates from variable lat and lan
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+        var queryURLToday = "https://api.openweathermap.org/data/2.5/weather?lat=" +
         lat + "&lon=" + lon + "&units=metric&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
 
         //Another Ajax call to get the weather for 5 days
         $.ajax({
-            url: queryURL,
+            url: queryURLToday,
             method: "GET"
         })
         .then(function(response){
-            console.log(response);
+            var date = moment().format("DD/MM/YYYY");
             //get the response and store in variables
-            var date = moment(response.list[0].dt_txt).format("DD/MM/YYYY");
-            var cityResult = response.city.name;
-            var weatherIcon = response.list[0].weather[0].icon;
-            var tempResult = response.list[0].main.temp + "C";
-            var windResult = response.list[0].wind.speed;
-            var humidityResult = response.list[0].main.humidity;
-
+            var cityResult = response.name;
+            var weatherIcon = response.weather[0].icon;
+            var tempResult = response.main.temp + "	&#186;C";
+            var windResult = response.wind.speed;
+            var humidityResult = response.main.humidity;
+            
             //use the set variables to update the HTML with information
             updateTodayDisplay(cityResult, date, weatherIcon, tempResult, windResult, humidityResult)
             
-            var forecastTitle = $("<h3>");
-            forecastTitle.attr("id", "forecastTitle")
-            forecastTitle.html("5-Day Forecast:");
-            $("#forecast").append(forecastTitle);
-            for (let i = 0; i < response.list.length; i++) {
-                var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss");
-                
-                if (midDay == "12:00:00"){
-                    var date = moment(response.list[i].dt_txt).format("DD/MM/YYYY");
-                    var weatherIcon = response.list[i].weather[0].icon;
-                    var tempResult = response.list[i].main.temp + "C";
-                    var windResult = response.list[i].wind.speed;
-                    var humidityResult = response.list[i].main.humidity;
-                    fiveDayForecast(date, weatherIcon, tempResult, windResult, humidityResult);
+            // Constructing a queryURL using the coordinates from variable lat and lan
+            var queryURL5Day = "https://api.openweathermap.org/data/2.5/forecast?lat=" +
+            lat + "&lon=" + lon + "&units=metric&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
+
+            //Another Ajax call to get the weather for 5 days
+            $.ajax({
+                url: queryURL5Day,
+                method: "GET"
+            })
+            .then(function(response){
+                var forecastTitle = $("<h3>");
+                forecastTitle.attr("id", "forecastTitle")
+                forecastTitle.html("5-Day Forecast:");
+                $("#forecast").append(forecastTitle);
+                for (let i = 0; i < response.list.length; i++) {
+                    var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss");
+                    
+                    if (midDay == "12:00:00"){
+                        var date = moment(response.list[i].dt_txt).format("DD/MM/YYYY");
+                        var weatherIcon = response.list[i].weather[0].icon;
+                        var tempResult = response.list[i].main.temp + "&#186;C";
+                        var windResult = response.list[i].wind.speed;
+                        var humidityResult = response.list[i].main.humidity;
+                        fiveDayForecast(date, weatherIcon, tempResult, windResult, humidityResult);
+                    }
                 }
-            }
+            });
         });
     });
 }
