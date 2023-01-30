@@ -11,10 +11,10 @@
         //The humidity DONE
         //The wind speed DONE (maybe convert to kph if needed)
     //Future conditions - 5days
-        //The date
-        //An icon representation of weather conditions
-        //The temperature
-        //The humidity
+        //The date - DONE
+        //An icon representation of weather conditions - DONE
+        //The temperature - DONE
+        //The humidity - DONE
 //Local storage information of past search - DONE
 //Create buttons for search history - for loop to number of searches stored in local storage - DONE
 
@@ -25,12 +25,9 @@ var searchedCities = [];
 $(window).on("load", function(event){
     event.preventDefault();
     addSearchHistoryButtons()
-    
 });
 
-
 function getWeather(city){
-    
     // Constructing a queryURL using the city name to get coordinates
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + 
     city + "&limit=1&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
@@ -68,6 +65,10 @@ function getWeather(city){
             //use the set variables to update the HTML with information
             updateTodayDisplay(cityResult, date, weatherIcon, tempResult, windResult, humidityResult)
             
+            var forecastTitle = $("<h3>");
+            forecastTitle.attr("id", "forecastTitle")
+            forecastTitle.html("5-Day Forecast:");
+            $("#forecast").append(forecastTitle);
             for (let i = 0; i < response.list.length; i++) {
                 var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss");
                 
@@ -77,12 +78,9 @@ function getWeather(city){
                     var tempResult = response.list[i].main.temp + "C";
                     var windResult = response.list[i].wind.speed;
                     var humidityResult = response.list[i].main.humidity;
-
                     fiveDayForecast(date, weatherIcon, tempResult, windResult, humidityResult);
                 }
-                
             }
-
         });
     });
 }
@@ -179,7 +177,7 @@ function fiveDayForecast(date, weatherIconResult, tempResult, windResult, humidi
     //Add elements in the div class with this container div
     var container = $("<div>");
     container.attr("class", "forecastContainer");
-    var dateForecast = $("<h3>");
+    var dateForecast = $("<h4>");
     dateForecast.html(date);
     // icon url is equal to this source but will change depending on the AJAX response - icon
     var iconURL = "http://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";

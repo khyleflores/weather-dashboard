@@ -1,3 +1,6 @@
+.weather-header{
+    background-color: #063970;
+}
 .weather-search{
     width: 100%;
 }
@@ -17,3 +20,21 @@
 .historyButtons{
     margin-bottom: 10px;
 }
+
+#forecastTitle{
+    width: 100%;
+    padding: 1rem 1rem 0rem 1rem; 
+}
+
+#forecast{
+    width: 100%;
+}
+
+.forecastContainer{
+    padding: .5rem 2.25rem .5rem 1rem; 
+    margin: 0rem .80rem 2rem .80rem; 
+    border: 1px solid #063970;
+    background-color: #063970;
+    color: white;
+}
+
