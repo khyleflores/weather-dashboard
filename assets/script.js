@@ -61,18 +61,28 @@ function getWeather(city){
             var date = moment(response.list[0].dt_txt).format("DD/MM/YYYY");
             var cityResult = response.city.name;
             var weatherIcon = response.list[0].weather[0].icon;
-            console.log(weatherIcon);
             var tempResult = response.list[0].main.temp + "C";
             var windResult = response.list[0].wind.speed;
             var humidityResult = response.list[0].main.humidity;
 
-            for (let i = 1; i < response.list.length && i < 6; i++) {
-                console.log(response.list[i].dt_txt);
-                console.log("For loop");
-            }
-
             //use the set variables to update the HTML with information
             updateTodayDisplay(cityResult, date, weatherIcon, tempResult, windResult, humidityResult)
+            
+            for (let i = 0; i < response.list.length; i++) {
+                var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss");
+                
+                if (midDay == "12:00:00"){
+                    var date = moment(response.list[i].dt_txt).format("DD/MM/YYYY");
+                    var weatherIcon = response.list[i].weather[0].icon;
+                    var tempResult = response.list[i].main.temp + "C";
+                    var windResult = response.list[i].wind.speed;
+                    var humidityResult = response.list[i].main.humidity;
+
+                    fiveDayForecast(date, weatherIcon, tempResult, windResult, humidityResult);
+                }
+                
+            }
+
         });
     });
 }
@@ -147,6 +157,8 @@ $("#search-button").on("click", function(event){
     event.preventDefault();
     // Grabbing and storing the search input value 
     city= $("#search-input").val();
+    //Clear the data in the forecast div in case there data from previous search
+    $("#forecast").empty();
     getWeather(city);
     addToSearchHistory();
     addSearchHistoryButtons();
@@ -157,10 +169,32 @@ $("#history").on("click", ".historyButtons", function(event){
     event.preventDefault();
     //set the searchCity variable to the text of the button clicked
     var searchCity = $(this).text();
+    //Clear the data in the forecast div in case there data from previous search
+    $("#forecast").empty();
     //call getWeather function with parameter searchCity
     getWeather(searchCity);
 })
 
-function fiveDayForecast(){
-
+function fiveDayForecast(date, weatherIconResult, tempResult, windResult, humidityResult){
+    //Add elements in the div class with this container div
+    var container = $("<div>");
+    container.attr("class", "forecastContainer");
+    var dateForecast = $("<h3>");
+    dateForecast.html(date);
+    // icon url is equal to this source but will change depending on the AJAX response - icon
+    var iconURL = "http://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
+    // Add image element for the icon
+    var iconWeather = $("<img>");
+    // set the img src to the iconURL
+    iconWeather.attr("src", iconURL);
+    temp = $("<p>");
+    temp.html("Temp: " + tempResult);
+    wind = $("<p>");
+    wind.html("Wind: " + windResult + "m/s");
+    humidity = $("<p>");
+    humidity.html("Humidity: " + humidityResult + "%");
+    //Append all the elements to div container
+    container.append(dateForecast).append(iconWeather).append(temp).append(wind).append(humidity);
+    //Append container div to today div
+    $("#forecast").append(container);
 }
