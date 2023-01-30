@@ -6,7 +6,7 @@
     //Current conditions
         //The city name DONE
         //The date DONE
-        //An icon representation of weather conditions 
+        //An icon representation of weather conditions  DONE
         //The temperature DONE
         //The humidity DONE
         //The wind speed DONE (maybe convert to kph if needed)
@@ -18,18 +18,13 @@
 //Local storage information of past search
 //Create buttons for search history - for loop to number of searches stored in local storage
 
-var cityName;
-var date;
-var weatherIcon;
-var temp;
-var humidity;
-var windSpeed;
-
-
+var city = "";
+// Array where the localstorage details will be stored
+var searchedCities = [];
 
 function getWeather(){
     // Grabbing and storing the search input value 
-    var city= $("#search-input").val();
+    city= $("#search-input").val();
     // Constructing a queryURL using the city name to get coordinates
     var queryURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + 
     city + "&limit=1&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
@@ -41,21 +36,22 @@ function getWeather(){
     .then(function(response){
         console.log(response);
 
+        //set the result of lat and lon from Ajax to variables to use to queryURL
         var lat = response[0].lat;
         var lon = response[0].lon;
 
-        console.log(lat + " " + lon);
-
-        // Constructing a queryURL using the city name
+        // Constructing a queryURL using the coordinates from variable lat and lan
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" +
         lat + "&lon=" + lon + "&units=metric&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
 
+        //Another Ajax call to get the weather for 5 days
         $.ajax({
             url: queryURL,
             method: "GET"
         })
         .then(function(response){
             console.log(response);
+            //get the response and store in variables
             var date = moment(response.list[0].dt_txt).format("DD/MM/YYYY");
             var cityResult = response.city.name;
             var weatherIcon = response.list[0].weather[0].icon;
@@ -64,6 +60,7 @@ function getWeather(){
             var windResult = response.list[0].wind.speed;
             var humidityResult = response.list[0].main.humidity;
 
+            //use the set variables to update the HTML with information
             updateTodayDisplay(cityResult, date, weatherIcon, tempResult, windResult, humidityResult)
         });
     });
@@ -73,21 +70,28 @@ function getWeather(){
 $("#search-button").on("click", function(event){
     event.preventDefault();
     getWeather();
+    addToSearchHistory()
 
 });
 
 function updateTodayDisplay(cityResult, dateResult, weatherIconResult, tempResult, windResult, humidityResult){
     //Clear the data in the today forecast div in case there is a search from previous
     $("#today").empty();
+    //Add elements in the div class today with this container div
     var container = $("<div>");
     container.attr("class", "todayContainer")
     var cityHeadline = $("<div>");
     var cityName = $("<h2>");
+    // icon url is equal to this source but will change depending on the AJAX response - icon
     var iconURL = "http://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
+    // Add image element for the icon
     var iconWeather = $("<img>");
+    // set the img src to the iconURL
     iconWeather.attr("src", iconURL);
     cityName.html(cityResult + " (" + dateResult + ")");
+    //Append the img to h2 element - cityName
     cityName.append(iconWeather);
+    //Append the h2 element to the div cityHeadline
     cityHeadline.append(cityName);
     temp = $("<p>");
     temp.html("Temp: " + tempResult);
@@ -99,4 +103,20 @@ function updateTodayDisplay(cityResult, dateResult, weatherIconResult, tempResul
     container.append(cityHeadline).append(temp).append(wind).append(humidity);
     //Append container div to today div
     $("#today").append(container);
+}
+
+function addToSearchHistory(){
+    if(!city){
+        //Do this if var city is empty
+    }
+    else{
+        //If there is a records detail in local storage then assign that to HighScoresRecord array
+        if (localStorage.getItem("searches") !== null) {
+            searchedCities = JSON.parse(localStorage.getItem("searches"));
+        }
+        //Pushing new city searchedCities array to store before setting it to local storage
+        searchedCities.push(city);
+        //Set the records in local storage with searchedCities array
+        localStorage.setItem('searches', JSON.stringify(searchedCities));
+    }
 }
