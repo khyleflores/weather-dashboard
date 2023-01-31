@@ -43,10 +43,12 @@ Addional code was added so that there will be no duplicates of searched history 
 
 jQuery Click Not Working. (n.d.). educba.com. Retrieved January 30 2023, from https://www.educba.com/jquery-click-not-working/
 
+Set() constructor. (Dec, 2022). Mdn Web Docs. Retrieved January 31 2023, from https://openweathermap.org/forecast5
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/Set
+
 Weather Conditions. (n.d.). openweathermap.org. Retrieved January 30 2023, from https://openweathermap.org/weather-conditions
 
 5 day weather forecast. (n.d.). openweathermap.org. Retrieved January 30 2023, from https://openweathermap.org/forecast5
-
 
 ## License
 

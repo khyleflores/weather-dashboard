@@ -61,8 +61,8 @@ function getWeather(city){
                 $("#forecast").append(forecastTitle);
                 //For loop to store responses and pass it in function
                 for (let i = 0; i < response.list.length; i++) {
-                    var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss"); 
-                    if (midDay == "12:00:00"){
+                    var morningTime = moment(response.list[i].dt_txt).format("HH:mm:ss"); 
+                    if (morningTime == "09:00:00"){
                         var date = moment(response.list[i].dt_txt).format("DD/MM/YYYY");
                         var weatherIcon = response.list[i].weather[0].icon;
                         var tempResult = response.list[i].main.temp + "&#186;C";
