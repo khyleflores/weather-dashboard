@@ -110,6 +110,8 @@ function updateTodayDisplay(cityResult, dateResult, weatherIconResult, tempResul
 function addToSearchHistory(){
     if(!city){
         //Do this if var city is empty
+        alert("Please enter a city in the search textbox.");
+        $("#history").empty();
     }
     else{
         searchedCities = [];
