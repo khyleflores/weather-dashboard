@@ -71,14 +71,17 @@ function getWeather(city){
                 url: queryURL5Day,
                 method: "GET"
             })
+            //get the response and store in variables
             .then(function(response){
                 var forecastTitle = $("<h3>");
+                //id to h3 element
                 forecastTitle.attr("id", "forecastTitle")
                 forecastTitle.html("5-Day Forecast:");
+                //append h3 element to div with id forecast
                 $("#forecast").append(forecastTitle);
+                //For loop to store responses and pass it in function
                 for (let i = 0; i < response.list.length; i++) {
-                    var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss");
-                    
+                    var midDay = moment(response.list[i].dt_txt).format("HH:mm:ss"); 
                     if (midDay == "12:00:00"){
                         var date = moment(response.list[i].dt_txt).format("DD/MM/YYYY");
                         var weatherIcon = response.list[i].weather[0].icon;
