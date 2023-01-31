@@ -1,23 +1,3 @@
-//PSEUDOCODE
-//QUERY URL from API Weather Forecast Geocoding API - get longitude and latitude - DONE
-//Get return and store in variables  - DONE
-//QUERY URL from API Weather Forecast using longitude and latitude - DONE
-//Store in variables
-    //Current conditions
-        //The city name DONE
-        //The date DONE
-        //An icon representation of weather conditions  DONE
-        //The temperature DONE
-        //The humidity DONE
-        //The wind speed DONE (maybe convert to kph if needed)
-    //Future conditions - 5days
-        //The date - DONE
-        //An icon representation of weather conditions - DONE
-        //The temperature - DONE
-        //The humidity - DONE
-//Local storage information of past search - DONE
-//Create buttons for search history - for loop to number of searches stored in local storage - DONE
-
 var city = "";
 // Array where the localstorage details will be stored
 var searchedCities = [];

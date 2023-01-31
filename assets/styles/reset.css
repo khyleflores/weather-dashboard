@@ -1,14 +1,14 @@
 .weather-header{
     background-color: #063970;
 }
-.weather-search{
-    width: 100%;
-}
-.search-button{
+.weather-search,
+.search-button,
+#forecast,
+.weather-hr,
+#forecastTitle{
     width: 100%;
 }
 .weather-hr{
-    width: 100%;
     border: 1px solid black;
 }
 
@@ -22,12 +22,7 @@
 }
 
 #forecastTitle{
-    width: 100%;
     padding: 1rem 1rem 0rem 1rem; 
-}
-
-#forecast{
-    width: 100%;
 }
 
 .forecastContainer{
