@@ -2,6 +2,7 @@
 
 ## Description 
 This application is a weather dashboard that allows a user to search for a city's current and future conditions. When a user views the current weather conditions for that city they are presented with:
+
     * The city name
     * The date
     * An icon representation of weather conditions
@@ -9,6 +10,7 @@ This application is a weather dashboard that allows a user to search for a city'
     * The humidity
     * The wind speed
 When a user view future weather conditions for the searched city they are presented with a 5-day forecast that displays:
+
     * The date
     * An icon representation of weather conditions
     * The temperature
