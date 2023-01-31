@@ -9,7 +9,7 @@ $(window).on("load", function(event){
 
 function getWeather(city){
     // Constructing a queryURL using the city name to get coordinates
-    var queryURLCoord = "http://api.openweathermap.org/geo/1.0/direct?q=" + 
+    var queryURLCoord = "https://api.openweathermap.org/geo/1.0/direct?q=" + 
     city + "&limit=1&appid=a3870bc5f9f6b6036fee3bdf6b81ac04";
 
     $.ajax({
@@ -85,7 +85,7 @@ function updateTodayDisplay(cityResult, dateResult, weatherIconResult, tempResul
     var cityHeadline = $("<div>");
     var cityName = $("<h2>");
     // icon url is equal to this source but will change depending on the AJAX response - icon
-    var iconURL = "http://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
+    var iconURL = "https://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
     // Add image element for the icon
     var iconWeather = $("<img>");
     // set the img src to the iconURL
@@ -178,7 +178,7 @@ function fiveDayForecast(date, weatherIconResult, tempResult, windResult, humidi
     var dateForecast = $("<h4>");
     dateForecast.html(date);
     // icon url is equal to this source but will change depending on the AJAX response - icon
-    var iconURL = "http://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
+    var iconURL = "https://openweathermap.org/img/wn/" + weatherIconResult + "@2x.png";
     // Add image element for the icon
     var iconWeather = $("<img>");
     // set the img src to the iconURL
