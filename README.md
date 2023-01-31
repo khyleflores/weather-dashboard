@@ -35,6 +35,7 @@ Once the user has search for a city, the application will display the city's cur
 ![Weather Dashboard screenshot](/assets/screenshots/screenshot2.png)
 
 Each time a city is searched, this input will be displayed on the left section as buttons. User will be able to click any of these buttons and once it is pressed, the weather details of this city will be displayed again. 
+Addional code was added so that there will be no duplicates of searched history ie 2 London buttons in the search history. 
 
 ![Weather Dashboard screenshot](/assets/screenshots/screenshot3.png)
 

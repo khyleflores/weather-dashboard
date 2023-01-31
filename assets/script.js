@@ -131,13 +131,18 @@ function addToSearchHistory(){
 function addSearchHistoryButtons(){
     //set this variable array from data of local storage
     searchedCities = JSON.parse(localStorage.getItem("searches"));
+    // remove duplicated data using Set constructor
+    var searchedCitiesUniq = [...new Set(searchedCities)];
+    //Set the records in local storage with searchedCitiesUnic array
+    //This was there is no duplicate on search history buttons and local storage
+    localStorage.setItem("searches", JSON.stringify(searchedCitiesUniq));
     //If the array is not null then add buttons for each data in the array
-    if (searchedCities !== null) {
+    if (searchedCitiesUniq !== null) {
         //for loop for each array of searchCities - create a button and append to div history
-        for (let i = 0; i < searchedCities.length; i++) {
+        for (let i = 0; i < searchedCitiesUniq.length; i++) {
             var button = $("<button>");
             button.addClass("btn btn-secondary historyButtons");
-            button.text(searchedCities[i]);
+            button.text(searchedCitiesUniq[i]);
             $("#history").append(button);
         }
     }
