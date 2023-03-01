@@ -17,6 +17,9 @@ When a user view future weather conditions for the searched city they are presen
     * The humidity
 When a user click on a city in the search history they are again presented with current and future conditions for that city.
 
+## Technologies Used
+HTML | Javascript | JQuery | CSS | Bootstrap | AJAX | MomentJS | Local Storage
+
 ## Installation
 
 N/A
